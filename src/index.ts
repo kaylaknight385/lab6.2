@@ -1,8 +1,8 @@
 // import everything we need
 import { 
-    getProductCatalog, 
-    getProductReviews, 
-    getSalesReport,
+    fetchProductCatalog, 
+    fetchProductReviews, 
+    fetchSalesReport,
     Product,
     Review,
     SalesReport
@@ -80,14 +80,14 @@ const runprogram = (): void => {
     console.log("step 1: getting product list...");
     
     // first, get all products
-    getProductCatalog()
+    fetchProductCatalog()
         .then((products: Product[]) => {
             console.log(`success! found ${products.length} products`);
             console.log(""); // empty line
             
             // for each product, get its reviews
             const reviewpromises = products.map(product => 
-                getProductReviews(product.id)
+                fetchProductReviews(product.id)
                     .then(reviews => ({
                         product,
                         reviews
@@ -117,7 +117,7 @@ const runprogram = (): void => {
             
             // now get the sales report
             console.log("step 2: getting sales report...");
-            return getSalesReport();
+            return fetchSalesReport();
         })
         .then((salesReport: SalesReport) => {
             showSalesReport(salesReport);
